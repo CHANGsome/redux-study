@@ -1,6 +1,10 @@
 // import { createStore } from '../utils/MyRedux';
-import { createStore } from 'redux';
-import reducer from './reducer';
+import { combineReducers, createStore } from 'redux';
+import personalReducer from './reducers/personalReducer';
+import voteReducer from './reducers/voteReducer';
 
-const store = createStore(reducer);
+const store = createStore(
+  combineReducers({ vote: voteReducer, personal: personalReducer })
+);
+
 export default store;

@@ -1,17 +1,17 @@
-import { ActionProps, ACTION_TYPE, VoteStateType } from './type';
+import { VoteActionProps, VOTE_ACTION_TYPE, VoteStateType } from '../type';
 
 let initialState: VoteStateType = {
   supportNum: 10,
   oppositeNum: 5,
 };
 
-const reducer = (state = initialState, action: ActionProps) => {
+const voteReducer = (state = initialState, action: VoteActionProps) => {
   state = { ...state };
   switch (action.type) {
-    case ACTION_TYPE.SUPPORT:
+    case VOTE_ACTION_TYPE.SUPPORT:
       state.supportNum++;
       break;
-    case ACTION_TYPE.OPPOSITE:
+    case VOTE_ACTION_TYPE.OPPOSITE:
       state.oppositeNum++;
       break;
     default:
@@ -19,4 +19,4 @@ const reducer = (state = initialState, action: ActionProps) => {
   }
   return state;
 };
-export default reducer;
+export default voteReducer;

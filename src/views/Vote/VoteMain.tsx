@@ -1,14 +1,13 @@
 import * as React from 'react';
-import VoteContext from '../store/context';
-import { VoteStoreType } from '../store/type';
+import GlobalContext from '../../store/context';
 
 const VoteMain = () => {
-  const store = React.useContext(VoteContext) as VoteStoreType;
-  const { supportNum, oppositeNum } = store.getState();
+  const store = React.useContext(GlobalContext);
+  const { supportNum, oppositeNum } = store!.getState().vote;
   // 没有什么用，只是用来更新组件
   const [_, setX] = React.useState(new Date());
   React.useEffect(() => {
-    store.subscribe(() => {
+    store!.subscribe(() => {
       setX(new Date());
     });
   }, []);

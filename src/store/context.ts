@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { VoteStoreType } from './type';
+import { Store } from 'redux';
+import { PersonalStateType, VoteStateType } from './type';
 
-const VoteContext = React.createContext<VoteStoreType | null>(null);
-export default VoteContext;
+const GlobalContext = React.createContext<Store<{
+  vote: VoteStateType;
+  personal: PersonalStateType;
+}> | null>(null);
+export default GlobalContext;
