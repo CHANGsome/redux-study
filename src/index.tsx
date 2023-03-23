@@ -6,6 +6,7 @@ import './index.less';
 import GlobalContext from './store/context';
 import store from './store';
 import Personal from './views/Personal';
+import Demo from './views/Demo';
 /* REDUX */
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,5 +18,6 @@ root.render(
       <br />
       <Personal />
     </GlobalContext.Provider>
+    <Demo />
   </>
 );
