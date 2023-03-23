@@ -1,6 +1,6 @@
 import * as React from 'react';
 import GlobalContext from '../../store/context';
-import { PERSONAL_ACTION_TYPE } from '../../store/type';
+import { ACTION_TYPE } from '../../store/type';
 import Content from './content';
 import './index.less';
 
@@ -15,7 +15,7 @@ const Personal = () => {
       update(new Date());
     });
     store?.dispatch({
-      type: PERSONAL_ACTION_TYPE.CHANGE,
+      type: ACTION_TYPE.PERSONAL_ACTION,
       payload: { title: '个人信息', content: '内容' },
     });
   }, []);

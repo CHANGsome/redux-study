@@ -4,22 +4,20 @@ export interface VoteStateType {
   supportNum: number;
   oppositeNum: number;
 }
-export enum VOTE_ACTION_TYPE {
-  SUPPORT = 1,
-  OPPOSITE = 2,
+export enum ACTION_TYPE {
+  VOTE_SUPPORT = 'VOTE_SUPPORT',
+  VOTE_OPPOSITE = 'VOTE_OPPOSITE',
+  PERSONAL_ACTION = 'PERSONAL_ACTION',
 }
 export interface VoteActionProps {
-  type: VOTE_ACTION_TYPE;
+  type: ACTION_TYPE;
 }
 
 export interface PersonalStateType {
   title: string;
   content: string;
 }
-export enum PERSONAL_ACTION_TYPE {
-  CHANGE = 3,
-}
 export interface PersonalActionProps {
-  type: PERSONAL_ACTION_TYPE;
+  type: ACTION_TYPE;
   payload: PersonalStateType;
 }

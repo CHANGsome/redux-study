@@ -1,8 +1,4 @@
-import {
-  PersonalActionProps,
-  PersonalStateType,
-  PERSONAL_ACTION_TYPE,
-} from '../type';
+import { PersonalActionProps, PersonalStateType, ACTION_TYPE } from '../type';
 
 let initialState: PersonalStateType = {
   title: '',
@@ -12,7 +8,7 @@ let initialState: PersonalStateType = {
 const personalReducer = (state = initialState, action: PersonalActionProps) => {
   state = { ...state };
   switch (action.type) {
-    case PERSONAL_ACTION_TYPE.CHANGE:
+    case ACTION_TYPE.PERSONAL_ACTION:
       state = action.payload;
       break;
     default:
