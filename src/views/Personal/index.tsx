@@ -1,20 +1,19 @@
 import * as React from 'react';
-import GlobalContext from '../../store/context';
-import { ACTION_TYPE } from '../../store/type';
+import { connect } from 'react-redux';
+import actions from '../../store/actions';
+import {
+  ACTION_TYPE,
+  PersonalStateType,
+  VoteStateType,
+} from '../../store/type';
 import Content from './content';
 import './index.less';
 
-const Personal = () => {
-  const store = React.useContext(GlobalContext);
-  const { title } = store!.getState().personal;
+const Personal = (props: { title: string; change: (payload: any) => void }) => {
+  const { title, change } = props;
 
-  // 没有什么用，只是用来更新组件
-  const [_, update] = React.useState(new Date());
   React.useEffect(() => {
-    store!.subscribe(() => {
-      update(new Date());
-    });
-    store?.dispatch({
+    change({
       type: ACTION_TYPE.PERSONAL_ACTION,
       payload: { title: '个人信息', content: '内容' },
     });
@@ -29,4 +28,15 @@ const Personal = () => {
     </div>
   );
 };
-export default Personal;
+export default connect(
+  (state: { vote: VoteStateType; personal: PersonalStateType }) => {
+    return state.personal;
+  },
+  (dispatch) => {
+    return {
+      change: (payload: any) => {
+        dispatch(payload);
+      },
+    };
+  }
+)(Personal);

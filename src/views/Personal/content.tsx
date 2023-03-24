@@ -1,17 +1,13 @@
 import * as React from 'react';
-import GlobalContext from '../../store/context';
+import { connect } from 'react-redux';
+import { PersonalStateType, VoteStateType } from '../../store/type';
 
-const Content = () => {
-  const store = React.useContext(GlobalContext);
-  const { content } = store!.getState().personal;
-  // 没有什么用，只是用来更新组件
-  const [_, update] = React.useState(new Date());
-  React.useEffect(() => {
-    store!.subscribe(() => {
-      update(new Date());
-    });
-  }, []);
-
+const Content = (props: { content: string }) => {
+  const { content } = props;
   return <div>{content}</div>;
 };
-export default Content;
+export default connect(
+  (state: { vote: VoteStateType; personal: PersonalStateType }) => {
+    return state.personal;
+  }
+)(Content);

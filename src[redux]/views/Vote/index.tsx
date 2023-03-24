@@ -2,11 +2,18 @@ import * as React from 'react';
 import './index.less';
 import VoteMain from './VoteMain';
 import VoteFooter from './VoteFooter';
-import { connect } from 'react-redux';
-import { PersonalStateType, VoteStateType } from '../../store/type';
+import GlobalContext from '../../store/context';
 
-const Vote = (props: VoteStateType) => {
-  const { supportNum, oppositeNum } = props;
+const Vote = () => {
+  const store = React.useContext(GlobalContext);
+  const { supportNum, oppositeNum } = store!.getState().vote;
+  // 没有什么用，只是用来更新组件
+  const [_, setX] = React.useState(new Date());
+  React.useEffect(() => {
+    store!.subscribe(() => {
+      setX(new Date());
+    });
+  }, []);
   return (
     <div className='vote-box'>
       <div className='header'>
@@ -19,8 +26,4 @@ const Vote = (props: VoteStateType) => {
   );
 };
 
-export default connect(
-  (state: { vote: VoteStateType; personal: PersonalStateType }) => {
-    return state.vote;
-  }
-)(Vote);
+export default Vote;

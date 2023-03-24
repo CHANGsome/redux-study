@@ -1,16 +1,9 @@
 import * as React from 'react';
-import GlobalContext from '../../store/context';
+import { connect } from 'react-redux';
+import { PersonalStateType, VoteStateType } from '../../store/type';
+const VoteMain = (props: VoteStateType) => {
+  const { supportNum, oppositeNum } = props;
 
-const VoteMain = () => {
-  const store = React.useContext(GlobalContext);
-  const { supportNum, oppositeNum } = store!.getState().vote;
-  // 没有什么用，只是用来更新组件
-  const [_, setX] = React.useState(new Date());
-  React.useEffect(() => {
-    store!.subscribe(() => {
-      setX(new Date());
-    });
-  }, []);
   return (
     <div className='main'>
       <p>支持人数：{supportNum}人</p>
@@ -18,4 +11,6 @@ const VoteMain = () => {
     </div>
   );
 };
-export default VoteMain;
+export default connect(
+  (state: { vote: VoteStateType; personal: PersonalStateType }) => state.vote
+)(VoteMain);
