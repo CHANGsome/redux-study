@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { PersonalStateType, VoteStateType } from '../../store/type';
+import { useSelector } from 'react-redux';
+import { PersonalStateType } from '../../store/type';
 
-const Content = (props: { content: string }) => {
-  const { content } = props;
+const Content = () => {
+  const { content } = useSelector(
+    (state: { personal: PersonalStateType }) => state.personal
+  );
   return <div>{content}</div>;
 };
-export default connect(
-  (state: { vote: VoteStateType; personal: PersonalStateType }) => {
-    return state.personal;
-  }
-)(Content);
+export default Content;

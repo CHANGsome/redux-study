@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { PersonalStateType, VoteStateType } from '../../store/type';
-const VoteMain = (props: VoteStateType) => {
-  const { supportNum, oppositeNum } = props;
+import { useSelector } from 'react-redux';
+import { VoteStateType } from '../../store/type';
+const VoteMain = () => {
+  const { supportNum, oppositeNum } = useSelector(
+    (state: { vote: VoteStateType }) => state.vote
+  );
 
   return (
     <div className='main'>
@@ -11,6 +13,4 @@ const VoteMain = (props: VoteStateType) => {
     </div>
   );
 };
-export default connect(
-  (state: { vote: VoteStateType; personal: PersonalStateType }) => state.vote
-)(VoteMain);
+export default VoteMain;

@@ -2,13 +2,11 @@ import * as React from 'react';
 import './index.less';
 import VoteMain from './VoteMain';
 import VoteFooter from './VoteFooter';
-import { useSelector } from 'react-redux';
-import { VoteStateType } from '../../store/type';
+import { connect } from 'react-redux';
+import { PersonalStateType, VoteStateType } from '../../store/type';
 
-const Vote = () => {
-  const { supportNum, oppositeNum } = useSelector(
-    (state: { vote: VoteStateType }) => state.vote
-  );
+const Vote = (props: VoteStateType) => {
+  const { supportNum, oppositeNum } = props;
   return (
     <div className='vote-box'>
       <div className='header'>
@@ -21,4 +19,8 @@ const Vote = () => {
   );
 };
 
-export default Vote;
+export default connect(
+  (state: { vote: VoteStateType; personal: PersonalStateType }) => {
+    return state.vote;
+  }
+)(Vote);

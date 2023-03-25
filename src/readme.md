@@ -1,1 +1,3 @@
-## react-redux: 简化 redux 流程
+## redux-toolkit：基于 slice
+
+Provider、useSelector、useDispatch

@@ -5,17 +5,32 @@ import Vote from './views/Vote/index';
 import './index.less';
 import store from './store';
 import Personal from './views/Personal';
+import Demo from './views/Demo';
 import { Provider } from 'react-redux';
-
+import {
+  PersonalStateType,
+  VoteActionProps,
+  VoteStateType,
+} from './store/type';
+/* REDUX */
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <>
-    <Provider store={store}>
+    <Provider<
+      VoteActionProps,
+      {
+        vote: VoteStateType;
+        personal: PersonalStateType;
+      }
+    >
+      store={store}
+    >
       <Vote />
       <br />
       <Personal />
     </Provider>
+    <Demo />
   </>
 );

@@ -1,10 +1,12 @@
-// import { createStore } from '../utils/MyRedux';
-import { combineReducers, createStore } from 'redux';
-import personalReducer from './reducers/personalReducer';
-import voteReducer from './reducers/voteReducer';
+import reduxLogger from 'redux-logger';
+import reduxThunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
+import voteSliceReducer from './features/voteSlice';
+import personalSliceReducer from './features/personalSlice';
 
-const store = createStore(
-  combineReducers({ vote: voteReducer, personal: personalReducer })
-);
+const store = configureStore({
+  reducer: { vote: voteSliceReducer, personal: personalSliceReducer },
+  middleware: [reduxLogger, reduxThunk],
+});
 
 export default store;

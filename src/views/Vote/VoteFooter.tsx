@@ -1,18 +1,30 @@
 import * as React from 'react';
 import { Button } from 'antd';
-import { connect } from 'react-redux';
-import actions from '../../store/actions';
+import { useDispatch } from 'react-redux';
+import { oppose, support } from '../../store/features/voteSlice';
 
-const VoteFooter = (props: { support: () => void; oppose: () => void }) => {
+const VoteFooter = () => {
+  const dispatch = useDispatch();
   return (
     <div className='footer'>
-      <Button type='primary' onClick={props.support}>
+      <Button
+        type='primary'
+        onClick={() => {
+          dispatch(support());
+        }}
+      >
         支持
       </Button>
-      <Button type='primary' danger onClick={props.oppose}>
+      <Button
+        type='primary'
+        danger
+        onClick={() => {
+          dispatch(oppose());
+        }}
+      >
         反对
       </Button>
     </div>
   );
 };
-export default connect(null, actions.vote)(VoteFooter);
+export default VoteFooter;

@@ -1,22 +1,25 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import actions from '../../store/actions';
-import {
-  ACTION_TYPE,
-  PersonalStateType,
-  VoteStateType,
-} from '../../store/type';
+import { useDispatch, useSelector } from 'react-redux';
+import { getInfo } from '../../store/features/personalSlice';
+import { PersonalStateType } from '../../store/type';
 import Content from './content';
 import './index.less';
 
-const Personal = (props: { title: string; change: (payload: any) => void }) => {
-  const { title, change } = props;
+const Personal = () => {
+  const { title } = useSelector(
+    (state: { personal: PersonalStateType }) => state.personal
+  );
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    change({
-      type: ACTION_TYPE.PERSONAL_ACTION,
-      payload: { title: '个人信息', content: '内容' },
-    });
+    (async () => {
+      const data = await new Promise<PersonalStateType>((resolve) => {
+        setTimeout(() => {
+          resolve({ title: 'personal title', content: 'personal content' });
+        }, 1000);
+      });
+      dispatch(getInfo(data));
+    })();
   }, []);
 
   return (
@@ -28,15 +31,4 @@ const Personal = (props: { title: string; change: (payload: any) => void }) => {
     </div>
   );
 };
-export default connect(
-  (state: { vote: VoteStateType; personal: PersonalStateType }) => {
-    return state.personal;
-  },
-  (dispatch) => {
-    return {
-      change: (payload: any) => {
-        dispatch(payload);
-      },
-    };
-  }
-)(Personal);
+export default Personal;
