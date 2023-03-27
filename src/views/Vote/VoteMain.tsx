@@ -1,6 +1,10 @@
+import { MobXProviderContext } from 'mobx-react';
 import * as React from 'react';
-import voteStore from '../../store/voteStore';
+import { VoteStore } from '../../store/voteStore';
 const VoteMain = () => {
+  const { voteStore } = React.useContext(MobXProviderContext) as {
+    voteStore: VoteStore;
+  };
   const { supportNum, oppositeNum } = voteStore;
 
   return (

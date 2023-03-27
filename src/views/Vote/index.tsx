@@ -2,11 +2,14 @@ import * as React from 'react';
 import './index.less';
 import VoteMain from './VoteMain';
 import VoteFooter from './VoteFooter';
-import { observer } from 'mobx-react';
-import voteStore from '../../store/voteStore';
+import { MobXProviderContext, observer } from 'mobx-react';
+import { VoteStore } from '../../store/voteStore';
 import personalStore from '../../store/personalStore';
 
 const Vote = observer(() => {
+  const { voteStore } = React.useContext(MobXProviderContext) as {
+    voteStore: VoteStore;
+  };
   const { supportNum, oppositeNum } = voteStore;
 
   return (
