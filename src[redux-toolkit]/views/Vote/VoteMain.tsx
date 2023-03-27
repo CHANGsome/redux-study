@@ -1,7 +1,10 @@
 import * as React from 'react';
-import voteStore from '../../store/voteStore';
+import { useSelector } from 'react-redux';
+import { VoteStateType } from '../../store/type';
 const VoteMain = () => {
-  const { supportNum, oppositeNum } = voteStore;
+  const { supportNum, oppositeNum } = useSelector(
+    (state: { vote: VoteStateType }) => state.vote
+  );
 
   return (
     <div className='main'>

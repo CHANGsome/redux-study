@@ -3,17 +3,19 @@ import * as ReactDOM from 'react-dom/client';
 import Vote from './views/Vote/index';
 /* 使用ANTD组件库 */
 import './index.less';
-import Personal from './views/Personal/index';
-// import './decorator';
-// import './proxy';
-// import Demo from './views/MobxDemo';
+import store from './store';
+import Personal from './views/Personal';
+import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <>
-    <Vote />
-    <Personal />
+    <Provider store={store}>
+      <Vote />
+      <br />
+      <Personal />
+    </Provider>
   </>
 );

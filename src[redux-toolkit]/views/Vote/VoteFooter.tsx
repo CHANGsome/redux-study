@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { Button } from 'antd';
-import { observer } from 'mobx-react';
-import voteStore from '../../store/voteStore';
+import { useDispatch } from 'react-redux';
+import { oppose, support } from '../../store/features/voteSlice';
 
 const VoteFooter = () => {
-  const { support, oppose } = voteStore;
+  const dispatch = useDispatch();
   return (
     <div className='footer'>
       <Button
         type='primary'
         onClick={() => {
-          support();
+          dispatch(support());
         }}
       >
         支持
@@ -19,7 +19,7 @@ const VoteFooter = () => {
         type='primary'
         danger
         onClick={() => {
-          oppose();
+          dispatch(oppose());
         }}
       >
         反对

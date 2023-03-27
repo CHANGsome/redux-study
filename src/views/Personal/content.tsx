@@ -1,11 +1,9 @@
+import { observer } from 'mobx-react';
 import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { PersonalStateType } from '../../store/type';
+import personalStore from '../../store/personalStore';
 
-const Content = () => {
-  const { content } = useSelector(
-    (state: { personal: PersonalStateType }) => state.personal
-  );
-  return <div>{content}</div>;
-};
+const Content = observer(() => {
+  const { info } = personalStore;
+  return <div>content:{info.content}</div>;
+});
 export default Content;
