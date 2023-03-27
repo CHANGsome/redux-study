@@ -1,11 +1,11 @@
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import * as React from 'react';
-import personalStore from '../../store/personalStore';
+import { PersonalStore } from '../../store/personalStore';
 import Content from './content';
 import './index.less';
 
-const Personal = observer(() => {
-  const { info, updateInfo } = personalStore;
+const Personal = (props: Partial<{ personalStore: PersonalStore }>) => {
+  const { info, updateInfo } = props.personalStore as PersonalStore;
   React.useEffect(() => {
     updateInfo();
   }, []);
@@ -17,5 +17,5 @@ const Personal = observer(() => {
       <Content />
     </div>
   );
-});
-export default Personal;
+};
+export default inject('personalStore')(observer(Personal));
