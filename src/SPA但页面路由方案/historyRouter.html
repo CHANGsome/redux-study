@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>history 路由简单实现</title>
+  </head>
+  <body>
+    <div id="nav">
+      <a href="/">主页</a>
+      <a href="/product">产品信息</a>
+      <a href="/personal">个人中心</a>
+    </div>
+    <div id="box"></div>
+    <script>
+      /**
+       * history路由：（也叫浏览器路由）
+       *  + 利用h5中的History API来实现页面地址的切换【可以不刷新页面】
+       *  + 根据不同的地址，到路由表中匹配，从而让容器渲染不同的内容
+       * 问题：
+       * 我们切换的地址，在页面不刷新的情况下是没有问题的，
+       * 但是如果页面刷新，这个地址是不存在的，会报404错误！！
+       * 此时我们需要服务器的配合：在地址不存在的情况下，也可以把主页面内容返回！！
+       */
+      var boxDiv = document.getElementById('box');
+      var navDiv = document.getElementById('nav');
+      var routerList = [
+        { path: '/', component: '主页的内容' },
+        { path: '/product', component: '产品信息的内容' },
+        { path: '/personal', component: '个人中心的内容' },
+      ];
+      // 在navDiv上做a标签的事件委托: 点击a标签实现页面地址切换，但是不能刷新页面
+      navDiv.onclick = function (e) {
+        var target = e.target;
+        if (target.tagName === 'A') {
+          // 阻止a标签的页面跳转和刷新行为
+          e.preventDefault();
+          // 手动用history的方法改变地址
+          history.pushState({}, '', target.href);
+          console.log(location.pathname);
+          pathChange();
+        }
+      };
+      function pathChange() {
+        var path = location.pathname;
+        console.log(path);
+        routerList.find((router) => {
+          if (router.path === path) {
+            boxDiv.innerText = router.component;
+            return true;
+          }
+          return false;
+        });
+      }
+
+      // 页面刚进来地址设为/，显示主页内容
+      // history.pushState({}, '', '/');
+      // pathChange();
+
+      /**
+       * 监听popstate地址变化，执行history的go/forward/back等方法触发，
+       * 但是执行pushState和replaceState不会触发
+       */
+      window.onpopstate = pathChange;
+    </script>
+  </body>
+</html>

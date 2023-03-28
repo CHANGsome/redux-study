@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hash 路由简单实现</title>
+  </head>
+  <body>
+    <div>
+      <a href="#/">主页</a>
+      <a href="#/product">产品信息</a>
+      <a href="#/personal">个人中心</a>
+    </div>
+    <div id="box"></div>
+    <script>
+      // 哈希路由：通过改变location中的hash值，页面渲染不同内容，页面不会刷新
+      var boxDiv = document.getElementById('box');
+      var routerList = [
+        { path: '/', component: '主页的内容' },
+        { path: '/product', component: '产品信息的内容' },
+        { path: '/personal', component: '个人中心的内容' },
+      ];
+      function hashMap() {
+        var path = location.hash.substring(1);
+        console.log(path);
+        routerList.find((router) => {
+          if (router.path === path) {
+            boxDiv.innerText = router.component;
+            return true;
+          }
+          return false;
+        });
+      }
+      // 页面刚进来hash设为#/，显示主页内容
+      location.hash = '/';
+      hashMap();
+      // 监听路由变化，显示不同内容
+      window.onhashchange = hashMap;
+    </script>
+  </body>
+</html>
