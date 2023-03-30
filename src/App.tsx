@@ -1,8 +1,10 @@
+import { Provider } from 'mobx-react';
 import * as React from 'react';
 import { HashRouter, Link, Redirect, Route, Switch } from 'react-router-dom';
-import A from './components/A';
-import B from './components/B';
 import C from './components/C';
+import store from './store';
+import Personal from './views/Personal';
+import Vote from './views/Vote';
 
 // hash 路由方案
 const App: React.FC = () => {
@@ -11,36 +13,38 @@ const App: React.FC = () => {
     <HashRouter>
       {/* 页面导航 */}
       <div>
-        <Link to='/a' style={{ margin: 10 }}>
-          A
+        <Link to='/vote' style={{ margin: 10 }}>
+          Vote
         </Link>
-        <Link to='/b' style={{ margin: 10 }}>
-          B
+        <Link to='/personal' style={{ margin: 10 }}>
+          Personal
         </Link>
         <Link to='/c' style={{ margin: 10 }}>
           C
         </Link>
       </div>
       {/* 路由匹配: 用switch包起来，只要匹配到就不往后再匹配 */}
-      <Switch>
-        {/* exact: 精准匹配（则 '/a' 不会和 '/' 匹配上） */}
-        <Route exact path='/' component={A} />
-        <Route path='/a' component={A} />
-        <Route path='/b' component={B} />
-        <Route
-          path='/c'
-          render={() => {
-            // 也可以使用render函数渲染
-            const isLogin = true;
-            if (isLogin) {
-              return <C />;
-            }
-            return <Redirect to='/' />;
-          }}
-        />
-        {/* 不是规则中的地址，默认重定向： */}
-        <Redirect to='/' />
-      </Switch>
+      <Provider {...store}>
+        <Switch>
+          {/* exact: 精准匹配（则 '/a' 不会和 '/' 匹配上） */}
+          <Route exact path='/' component={Vote} />
+          <Route path='/vote' component={Vote} />
+          <Route path='/personal' component={Personal} />
+          <Route
+            path='/c'
+            render={() => {
+              // 也可以使用render函数渲染
+              const isLogin = true;
+              if (isLogin) {
+                return <C />;
+              }
+              return <Redirect to='/' />;
+            }}
+          />
+          {/* 不是规则中的地址，默认重定向： */}
+          <Redirect to='/' />
+        </Switch>
+      </Provider>
     </HashRouter>
   );
 };
