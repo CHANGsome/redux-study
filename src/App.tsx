@@ -5,6 +5,7 @@ import C from './components/C';
 import store from './store';
 import Personal from './views/Personal';
 import Vote from './views/Vote';
+import VoteUseReducer from './views/VoteUseReducer';
 
 // hash 路由方案
 const App: React.FC = () => {
@@ -36,7 +37,7 @@ const App: React.FC = () => {
               // 也可以使用render函数渲染
               const isLogin = true;
               if (isLogin) {
-                return <C />;
+                return <VoteUseReducer />;
               }
               return <Redirect to='/' />;
             }}
